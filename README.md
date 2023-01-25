@@ -1,8 +1,8 @@
-# `<name of application here>`
+# AirBnB API Project
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+<img src="airbnb_dbdiagram.png">
 
 ## API Documentation
 
