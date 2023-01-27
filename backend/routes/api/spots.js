@@ -10,7 +10,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 
-
+//Get All Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
 
@@ -57,6 +57,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     return res.json({Spots})
 })
 
+//Get details for a Spot from an id
 router.get('/:spotId', async (req, res, next) => {
     const {spotId} = req.params;
 
@@ -103,6 +104,7 @@ router.get('/:spotId', async (req, res, next) => {
     return res.json(spot)
 })
 
+//Get All Spots
 router.get('/', async (req, res, next) => {
     const spots = await Spot.findAll({})
 
@@ -144,7 +146,7 @@ router.get('/', async (req, res, next) => {
     return res.json({Spots})
 })
 
-const validateCreateSpot = [
+const validateCreateAndEditSpot = [
     check('address')
       .exists({ checkFalsy: true })
     //   .notEmpty()
@@ -190,7 +192,8 @@ const validateCreateSpot = [
     handleValidationErrors
 ];
 
-router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
+//Create a Spot
+router.post('/', requireAuth, validateCreateAndEditSpot, async (req, res, next) => {
  const ownerId = req.user.id;
 
  const {address, city, state, country, lat, lng, name, description, price} = req.body
@@ -211,6 +214,62 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
 
 })
 
+
+//Edit a Spot
+router.put('/:spotId', requireAuth,validateCreateAndEditSpot, async (req, res, next) => {
+const { spotId } = req.params;
+const { address, city, state, country, lat, lng, name, description, price} = req.body;
+const spot = await Spot.findByPk(+spotId);
+const userId = req.user.id;
+console.log(spot)
+
+if(!spot){
+  const err = new Error("Spot could not be found")
+  err.status = 404
+  console.log(err)
+  return next(err)
+}
+const {ownerId} = spot;
+
+if(userId !== ownerId) {
+  const err = new Error("Forbidden")
+  err.status = 403
+  return next(err)
+} else {
+  spot.address = address;
+  spot.city = city;
+  spot.state = state;
+  spot.country = country;
+  spot.lat = lat;
+  spot.lng = lng;
+  spot.name = name;
+  spot.description = description;
+  spot.price = price;
+  await spot.save()
+  return res.json(spot)
+}
+
+})
+
+//Delete a Spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+  const { spotId } = req.params;
+
+  const spot = await Spot.findByPk(spotId);
+  const user = req.user;
+
+  if(spot){
+    await spot.destroy();
+    return res.json({
+    "message": "Successfully deleted",
+    "statusCode": 200
+    })
+  } else {
+    const err = new Error("Spot could not be found")
+    err.status = 404
+    return next(err)
+  }
+})
 
 
 module.exports = router;
