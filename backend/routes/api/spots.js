@@ -9,8 +9,33 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-//Get all Bookings for a Spot ased on Spot's id
+// Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res, next) => {
+  const {spotId} = req.params
 
+  const spot = await Spot.findByPk(spotId)
+
+  if (!spot) {
+    return res.status(404).json( {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const Reviews = await Review.findAll({
+    where: {spotId: +spotId},
+    include: [
+      {model:User,
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {model: ReviewImage,
+        attributes: ['id', 'url']}
+    ]
+  })
+  return res.json({Reviews})
+})
+
+//Get all Bookings for a Spot ased on Spot's id
 router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
   const {spotId} = req.params;
   const spot = await Spot.findByPk(spotId)
@@ -224,6 +249,54 @@ const validateCreateAndEditSpot = [
 
     handleValidationErrors
 ];
+
+const validateCreateReview = [
+  check('review')
+  .exists({checkFalsy:true})
+  .withMessage('Review text is required'),
+  check('stars')
+  .exists().withMessage('Stars are required')
+  .isInt({min:1, max: 5}).withMessage('Stars must be an integer from 1 to 5'),
+
+  handleValidationErrors
+]
+
+// Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', requireAuth, validateCreateReview, async (req, res, next) => {
+  const {review, stars} = req.body
+  const {spotId} = req.params
+  const userId = req.user.id
+
+  const spot = await Spot.findByPk(spotId)
+
+  if (!spot) {
+    return res.status(404).json( {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const existingReview = await Review.findOne({
+    where: {[Op.and]: [{userId}, {spotId: +spotId}]}
+  })
+
+  if (existingReview){
+    return res.status(403).json( {
+      "message": "User already has a review for this spot",
+      "statusCode": 403
+    })
+  }
+
+  let newReview = await Review.create({
+    userId,
+    spotId: +spotId,
+    review,
+    stars
+  })
+
+  return res.json(newReview);
+
+})
 
 // Create a Booking from a Spot based on the Spot's id
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
