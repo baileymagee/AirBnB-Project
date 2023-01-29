@@ -52,6 +52,51 @@ const validateCreateReview = [
     handleValidationErrors
   ]
 
+// Add an Image to a Review based on the Review's id
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+    const {reviewId} = req.params;
+    const userId = req.user.id;
+
+    const review = await Review.findByPk(reviewId)
+
+    if(!review) {
+        return res.status(404).json( {
+            message: "Spot couldn't be found",
+            statusCode: 404
+          })
+    }
+
+    if(review.userId !== userId) {
+        return res.status(403).json({
+            message: "Forbidden, you must be the creator of the review to add image.",
+            statusCode: 403
+        })
+    }
+
+    const reviewImages = await ReviewImage.findAll({
+        where: {reviewId: +reviewId}
+    })
+
+    if (reviewImages.length >= 10){
+        return res.status(403).json({
+            message: "Maximum number of images for this resource was reached",
+            statusCode: 403
+          })
+    }
+
+    const {url} = req.body
+
+    const newImage = await ReviewImage.create({
+        reviewId: +reviewId,
+        url
+    })
+
+    const returnNewImage = {id: newImage.id, url: newImage.url}
+
+    return res.json(returnNewImage);
+})
+
+
 // Edit a Review
 router.put('/:reviewId', requireAuth, validateCreateReview, async (req, res, next) => {
     const {reviewId} = req.params;
@@ -82,7 +127,6 @@ router.put('/:reviewId', requireAuth, validateCreateReview, async (req, res, nex
 })
 
 // Delete a Review
-
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const {reviewId} = req.params;
     const userId = req.user.id;

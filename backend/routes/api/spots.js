@@ -261,6 +261,43 @@ const validateCreateReview = [
   handleValidationErrors
 ]
 
+
+// Add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+  const {spotId} = req.params;
+  const userId = req.user.id
+
+  const spot = await Spot.findByPk(spotId)
+
+  if (!spot) {
+    return res.status(404).json( {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const {ownerId} = spot
+
+  if(userId !== ownerId) {
+    const err = new Error("Forbidden")
+    err.status = 403
+    return next(err)
+  }
+
+  const {url, preview} = req.body
+
+  const newImage = await SpotImage.create({
+    spotId: +spotId,
+    url,
+    preview,
+  })
+
+  const returnNewImage = {id: newImage.id, url: newImage.url, preview: newImage.preview}
+
+  return res.json(returnNewImage)
+
+})
+
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews', requireAuth, validateCreateReview, async (req, res, next) => {
   const {review, stars} = req.body

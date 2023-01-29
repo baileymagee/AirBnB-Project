@@ -18,11 +18,13 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     spotId: {
       type: DataTypes.INTEGER,
-      references: {model: 'Spots'}
+      references: {model: 'Spots'},
+      onDelete: 'CASCADE'
     },
     userId: {
       type: DataTypes.INTEGER,
-      references: {model: 'Users'}
+      references: {model: 'Users'},
+      onDelete: 'CASCADE'
     },
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE
