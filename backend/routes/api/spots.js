@@ -4,7 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
-const {Op} = require('sequelize');
+const {Op, where} = require('sequelize');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
@@ -162,9 +162,119 @@ router.get('/:spotId', async (req, res, next) => {
     return res.json(spot)
 })
 
+const validateQuery = [
+  check("page")
+      .optional({ nullable: true })
+      .isInt({ min: 1 })
+      .withMessage("Page must be greater than or equal to 1"),
+  check("size")
+      .optional({ nullable: true })
+      .isInt({ min: 1 })
+      .withMessage("Size must be greater than or equal to 1"),
+  check("maxLat")
+      .optional({ nullable: true })
+      .isDecimal()
+      .withMessage("Maximum latitude is invalid"),
+  check("minLat")
+      .optional({ nullable: true })
+      .isDecimal()
+      .withMessage("Minimum latitude is invalid"),
+  check("maxLng")
+      .optional({ nullable: true })
+      .isDecimal()
+      .withMessage("Maximum longitude is invalid"),
+  check("minLng")
+      .optional({ nullable: true })
+      .isDecimal()
+      .withMessage("Minimum longitude is invalid"),
+  check("minPrice")
+      .optional()
+      .isFloat({ min: 0 })
+      .withMessage("Minimum price must be greater or equal to 0"),
+  check("maxPrice")
+      .optional()
+      .isFloat({ min: 0 })
+      .withMessage("Maximum price must be greater or equal to 0"),
+  handleValidationErrors
+];
+
 //Get All Spots
-router.get('/', async (req, res, next) => {
-    const spots = await Spot.findAll({})
+router.get('/', validateQuery, async (req, res, next) => {
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
+    page = +page
+    size = +size
+
+    // console.log(page)
+    console.log(typeof page)
+    console.log(typeof size)
+
+    if(isNaN(page)){
+      page = 1
+    }
+
+    if(isNaN(size)){
+      size = 20
+    }
+
+    if (page > 10) {
+      page = 10
+    }
+
+    if (size > 20){
+      size = 20
+    }
+
+    limit = size
+    offset = size * (page - 1)
+
+    let where = {}
+
+    if(!isNaN(minLat) && !isNaN(maxLat)){
+      where.lat = {[Op.and]: [
+        {[Op.gte]: minLat},
+        {[Op.lte]: maxLat}
+      ]}
+    }
+    else if (!isNaN(minLat)) {
+      where.lat = {[Op.gte]: minLat}
+    }
+    else if (!isNaN(maxLat)) {
+      where.lat = {[Op.lte]: maxLat}
+    }
+
+    if(!isNaN(minLng) && !isNaN(maxLng)) {
+      where.lng = {[Op.and]: [
+        {[Op.gte]: minLng},
+        {[Op.lte]: maxLng}
+      ]}
+    }
+    else if (!isNaN(minLng)) {
+      where.lng = {[Op.gte]: minLng}
+    }
+    else if (!isNaN(maxLng)) {
+      where.lng = {[Op.lte]: maxLng}
+    }
+
+
+
+    if(!isNaN(minPrice) && !isNaN(maxPrice)){
+      where.price = {[Op.between]: [minPrice, maxPrice]}
+    }
+    else if(!isNaN(minPrice)) {
+      where.price = {[Op.gte]: minPrice}
+    }
+    else if(!isNaN(maxPrice)) {
+      where.price = {[Op.lte]: maxPrice}
+    }
+
+
+
+    const spots = await Spot.findAll({
+      where,
+      limit,
+      offset
+    })
 
     const Spots = [];
     for (let frozenSpot of spots) {
@@ -201,7 +311,7 @@ router.get('/', async (req, res, next) => {
         Spots.push(spot)
     }
 
-    return res.json({Spots})
+    return res.json({Spots, page, size})
 })
 
 const validateCreateAndEditSpot = [
