@@ -61,9 +61,9 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
     if(!review) {
         return res.status(404).json( {
-            message: "Spot couldn't be found",
+            message: "Review couldn't be found",
             statusCode: 404
-          })
+        })
     }
 
     if(review.userId !== userId) {

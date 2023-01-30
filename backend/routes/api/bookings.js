@@ -33,10 +33,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         booking.Spot.previewImage = previewImage.url
     };
 
-    return res.json(allUserBookings)
-
-
-
+    return res.json({Bookings: allUserBookings})
 
 })
 
