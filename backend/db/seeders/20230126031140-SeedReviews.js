@@ -22,6 +22,24 @@ module.exports = {
             "spotId": 1,
             "review": "This was an awesome spot!",
             "stars": 5
+          },
+          {
+            "userId": 1,
+            "spotId": 3,
+            "review": "This was a great spot!",
+            "stars": 4
+          },
+          {
+            "userId": 1,
+            "spotId": 2,
+            "review": "This was an awesome spot!",
+            "stars": 5
+          },
+          {
+            "userId": 2,
+            "spotId": 3,
+            "review": "This was a great spot!",
+            "stars": 4
           }
       ],
 			{}

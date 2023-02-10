@@ -17,14 +17,14 @@ module.exports = {
             preview: true
           },
           {
-            spotId: 1,
+            spotId: 2,
             url: "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/home-improvement/wp-content/uploads/2022/08/image19.png",
-            preview: false
+            preview: true
           },
           {
-            spotId: 1,
+            spotId: 3,
             url: "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/home-improvement/wp-content/uploads/2022/08/Los-Banos-3-1.png",
-            preview: false
+            preview: true
           }
       ],
 			{}

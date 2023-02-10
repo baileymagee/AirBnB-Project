@@ -18,35 +18,44 @@ module.exports = {
       ownerId: {
         type: Sequelize.INTEGER,
         references: {model:"Users"},
-        allowNull: false,
-        onDelete: "CASCADE"
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       country: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       lat: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       lng: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

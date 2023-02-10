@@ -17,11 +17,11 @@ module.exports = {
           "city": "San Francisco",
           "state": "California",
           "country": "United States of America",
-          "lat": 37.7645358,
-          "lng": -122.4730327,
+          "lat": 58.7645358,
+          "lng": 139.9827327,
           "name": "App Academy",
           "description": "Place where web developers are created",
-          "price": 123
+          "price": 250
         },
         {
           "ownerId": 2,
@@ -30,10 +30,10 @@ module.exports = {
           "state": "California",
           "country": "United States of America",
           "lat": 37.7645358,
-          "lng": -122.4730327,
+          "lng": 110.6547897,
           "name": "App Academy",
           "description": "Place where web developers are created",
-          "price": 123
+          "price": 120
         },
         {
           "ownerId": 3,
@@ -41,11 +41,11 @@ module.exports = {
           "city": "San Francisco",
           "state": "California",
           "country": "United States of America",
-          "lat": 37.7645358,
-          "lng": -122.4730327,
+          "lat": 47.7645358,
+          "lng": -126.8930327,
           "name": "App Academy",
           "description": "Place where web developers are created",
-          "price": 123
+          "price": 100
         }
       ],
 			{}
