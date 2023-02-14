@@ -12,14 +12,12 @@ export default function Spots() {
     }, [dispatch])
 
     const spots = useSelector((state) => {
-        console.log(state)
         return state.spots
     })
     return isLoaded ?(
         <div>
             {Object.keys(spots).map(key => {
                 const spot = spots[key]
-                console.log(spot)
                 return (
                     <p>
                         {spot.state}
