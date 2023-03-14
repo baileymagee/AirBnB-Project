@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import { thunkGetAllSpots } from "../../store/spotsReducer"
-import './Spots.css';
+import './GetAllSpots.css';
 
 export default function Spots() {
     const dispatch = useDispatch();
+
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
@@ -12,16 +13,20 @@ export default function Spots() {
     }, [dispatch])
 
     const spots = useSelector((state) => {
-        return state.spots
+        return state.spots.allSpots
     })
+
     return isLoaded ?(
         <div>
             {Object.keys(spots).map(key => {
                 const spot = spots[key]
                 return (
+                    <div className="spot-image" key={key}>
+                        <img src={spot.previewImage} alt={spot.name} />
                     <p>
                         {spot.state}
                     </p>
+                    </div>
                 )
             })}
 
