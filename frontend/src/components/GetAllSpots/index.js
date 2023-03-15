@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import { thunkGetAllSpots } from "../../store/spotsReducer"
+import { NavLink, useParams } from "react-router-dom";
 import './GetAllSpots.css';
 
 export default function Spots() {
@@ -18,15 +19,22 @@ export default function Spots() {
 
     return isLoaded ?(
         <div>
-            {Object.keys(spots).map(key => {
-                const spot = spots[key]
+            {Object.values(spots).map(spot => {
+                // const spot = spots[spot]
                 return (
-                    <div className="spot-image" key={key}>
-                        <img src={spot.previewImage} alt={spot.name} />
+                    <NavLink to={`spots/${spot.id}`}>
+                    <div className="spot-image">
+                        <div>
+                            <img src={spot.previewImage} alt={spot.name}/>
+                        </div>
                     <p>
-                        {spot.state}
+                        {spot.city}, { spot.state}
+                    </p>
+                    <p>
+                        {`$${spot.price} night`}
                     </p>
                     </div>
+                    </NavLink>
                 )
             })}
 
