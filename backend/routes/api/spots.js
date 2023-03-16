@@ -331,18 +331,18 @@ const validateCreateAndEditSpot = [
       .exists({checkFalsy: true})
     //   .notEmpty()
       .withMessage('Country is required'),
-    check('lat')
-      .exists({checkFalsy: true})
-    //   .notEmpty()
-      .withMessage('Latitude is required')
-      .isDecimal()
-      .withMessage('Latitude is not valid'),
-    check('lng')
-      .exists({checkFalsy: true})
-    //   .notEmpty()
-      .withMessage('Longitude is required')
-      .isDecimal()
-      .withMessage('Longitude is not valid'),
+    // check('lat')
+    //   .exists({checkFalsy: true})
+    // //   .notEmpty()
+    //   .withMessage('Latitude is required')
+    //   .isDecimal()
+    //   .withMessage('Latitude is not valid'),
+    // check('lng')
+    //   .exists({checkFalsy: true})
+    // //   .notEmpty()
+    //   .withMessage('Longitude is required')
+    //   .isDecimal()
+    //   .withMessage('Longitude is not valid'),
     check('name')
       .exists({checkFalsy: true})
     //   .notEmpty()
@@ -352,9 +352,11 @@ const validateCreateAndEditSpot = [
     check('description')
       .exists({checkFalsy: true})
     //   .notEmpty()
+      .isLength({min:30})
       .withMessage('Description is required'),
     check('price')
       .exists({checkFalsy: true})
+      .isInt({min: 1})
       .withMessage('Price per day is required'),
 
     handleValidationErrors
@@ -370,6 +372,7 @@ const validateCreateReview = [
 
   handleValidationErrors
 ]
+
 
 
 // Add an Image to a Spot based on the Spot's id
