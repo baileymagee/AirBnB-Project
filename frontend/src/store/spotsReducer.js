@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = "spots/getAllSpots";
 const GET_ONE_SPOT = "spots/getOneSpot";
 const ADD_SPOT = "spots/addSpot";
+const MANAGE_SPOTS = "spots/manageSpots"
 
 //actions
 const actionGetAllSpots = (spots) => {
@@ -26,6 +27,13 @@ const actionAddSpot = (spot) => {
     payload: spot,
   };
 };
+
+const actionManageSpot = (spots) => {
+  return {
+    type: MANAGE_SPOTS,
+    payload: spots
+  }
+}
 
 //thunks
 
@@ -65,6 +73,34 @@ export const thunkAddSpot = (data, imgArray) => async (dispatch) => {
   }
 };
 
+export const thunkEditSpot = (data, spotId, imgArray) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const newSpot = await response.json();
+    dispatch(actionAddSpot(newSpot));
+    for (let img of imgArray) {
+      await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        method: "POST",
+        body: JSON.stringify(img),
+      });
+    }
+    return newSpot.id;
+  }
+};
+
+export const thunkManageSpots = () => async (dispatch) => {
+  const response = await csrfFetch("/api/spots/current");
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data)
+    dispatch(actionManageSpot(data));
+    return data;
+  }
+};
+
 //reducers
 const initialState = {
   allSpots: {},
@@ -97,6 +133,11 @@ const spotsReducer = (state = initialState, action) => {
     case ADD_SPOT:
       newState = { ...state };
       newState[action.payload.id] = action.payload;
+      return newState;
+
+    case MANAGE_SPOTS:
+      newState = { ...state };
+      newState.allSpots = normalize(action.payload.Spots);
       return newState;
 
     default:

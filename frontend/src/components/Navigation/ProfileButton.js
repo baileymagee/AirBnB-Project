@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import * as sessionActions from "../../store/session";
+
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
+  console.log(user)
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -21,7 +24,7 @@ function ProfileButton({ user }) {
       }
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -33,6 +36,10 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  const manageListing = () => {
+    history.push('/spots/current')
+  }
+
   return (
     <>
       <button onClick={openMenu}>
@@ -40,8 +47,13 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
+        <li>
+          {user.firstName} {user.lastName}
+        </li>
         <li>{user.email}</li>
+        <li>
+          <button onClick={manageListing}>Manage Spots</button>
+        </li>
         <li>
           <button onClick={logout}>Log Out</button>
         </li>

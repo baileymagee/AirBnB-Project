@@ -20,19 +20,18 @@ export default function Spots() {
   return isLoaded ? (
     <div>
       {Object.values(spots).map((spot) => {
-        // const spot = spots[spot]
         return (
-          <NavLink to={`spots/${spot.id}`}>
-            <div className="spot-image">
-              <div>
+          <div className="splash-page">
+            <NavLink to={`/spots/${spot.id}`}>
+              <div className="spot-image">
                 <img src={spot.previewImage} alt={spot.name} />
               </div>
+            </NavLink>
               <p>
                 {spot.city}, {spot.state}
               </p>
               <p>{`$${spot.price} night`}</p>
-            </div>
-          </NavLink>
+          </div>
         );
       })}
     </div>
