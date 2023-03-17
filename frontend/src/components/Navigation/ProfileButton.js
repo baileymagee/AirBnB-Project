@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 
-
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  console.log(user)
+  // console.log(user);
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -37,8 +36,8 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   const manageListing = () => {
-    history.push('/spots/current')
-  }
+    history.push("/spots/current");
+  };
 
   return (
     <>

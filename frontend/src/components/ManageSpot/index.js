@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { thunkManageSpots } from "../../store/spotsReducer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 export default function ManageSpot() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -15,7 +16,6 @@ export default function ManageSpot() {
   const spots = useSelector((state) => {
     return state.spots.allSpots;
   });
-  console.log(spots);
 
   return isLoaded ? (
     <div className="manage-home">
@@ -28,15 +28,17 @@ export default function ManageSpot() {
           <div className="spot-info">
             <NavLink to={`/spots/${spot.id}`}>
               <div className="spot-image">
-                  <img src={spot.previewImage} alt={spot.name} />
+                <img src={spot.previewImage} alt={spot.name} />
               </div>
             </NavLink>
-                <p>
-                  {spot.city}, {spot.state}
-                </p>
-                <p>{`$${spot.price} night`}</p>
-              <button>Update</button>
-              <button>Delete</button>
+            <p>
+              {spot.city}, {spot.state}
+            </p>
+            <p>{`$${spot.price} night`}</p>
+            <NavLink to={`/edits/spots/${spot.id}`}>
+              Update
+            </NavLink>
+            <button>Delete</button>
           </div>
         );
       })}
