@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { thunkManageSpots } from "../../store/spotsReducer";
 import { NavLink, useHistory } from "react-router-dom";
+import DeleteSpot from "../DeleteSpotModal";
+import OpenModalButton from "../OpenModalButton";
 
 export default function ManageSpot() {
   const dispatch = useDispatch();
@@ -35,10 +37,12 @@ export default function ManageSpot() {
               {spot.city}, {spot.state}
             </p>
             <p>{`$${spot.price} night`}</p>
-            <NavLink to={`/edits/spots/${spot.id}`}>
-              Update
-            </NavLink>
-            <button>Delete</button>
+            <NavLink to={`/edits/spots/${spot.id}`}>Update</NavLink>
+            <OpenModalButton
+              className="delete-modal"
+              buttonText="Delete"
+              modalComponent={<DeleteSpot spot={spot} />}
+            />
           </div>
         );
       })}

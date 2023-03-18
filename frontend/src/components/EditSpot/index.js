@@ -8,19 +8,25 @@ export default function EditSpot() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { spotId } = useParams();
-  console.log(spotId)
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [description, setDescription] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-//   const [previewImage, setPreviewImage] = useState("");
-//   const [photo2, setPhoto2] = useState("");
-//   const [photo3, setPhoto3] = useState("");
-//   const [photo4, setPhoto4] = useState("");
-//   const [photo5, setPhoto5] = useState("");
+
+
+  const spotData = useSelector((state) => {
+    return state.spots.allSpots[spotId];
+  });
+
+
+  const [country, setCountry] = useState(spotData.country);
+  const [address, setAddress] = useState(spotData.address);
+  const [city, setCity] = useState(spotData.city);
+  const [state, setState] = useState(spotData.state);
+  const [description, setDescription] = useState(spotData.description);
+  const [name, setName] = useState(spotData.name);
+  const [price, setPrice] = useState(spotData.price);
+  //   const [previewImage, setPreviewImage] = useState("");
+  //   const [photo2, setPhoto2] = useState("");
+  //   const [photo3, setPhoto3] = useState("");
+  //   const [photo4, setPhoto4] = useState("");
+  //   const [photo5, setPhoto5] = useState("");
   const [errors, setErrors] = useState([]);
 
   const onSubmit = async (e) => {
@@ -148,7 +154,6 @@ export default function EditSpot() {
             onChange={(e) => setPrice(e.target.value)}
             value={price}
             placeholder="Price per night (USD)"
-
           />
         </div>
         {/* <div className="form-row">

@@ -5,7 +5,8 @@ const GET_ALL_SPOTS = "spots/getAllSpots";
 const GET_ONE_SPOT = "spots/getOneSpot";
 const ADD_SPOT = "spots/addSpot";
 const MANAGE_SPOTS = "spots/manageSpots";
-const EDIT_SPOT = "spots/editSpot"
+const EDIT_SPOT = "spots/editSpot";
+const DELETE_SPOT = "spots/deleteSpot";
 
 //actions
 const actionGetAllSpots = (spots) => {
@@ -40,6 +41,13 @@ const actionManageSpot = (spots) => {
   return {
     type: MANAGE_SPOTS,
     payload: spots,
+  };
+};
+
+const actionDeleteSpot = (spotId) => {
+  return {
+    type: DELETE_SPOT,
+    payload: spotId,
   };
 };
 
@@ -109,6 +117,17 @@ export const thunkManageSpots = () => async (dispatch) => {
   }
 };
 
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(actionDeleteSpot(spotId));
+    return data;
+  }
+};
+
 //reducers
 const initialState = {
   allSpots: {},
@@ -142,13 +161,18 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
 
     case EDIT_SPOT:
-      newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
+    newState = { ...state };
+    newState[action.payload.id] = action.payload;
+    return newState;
 
     case MANAGE_SPOTS:
       newState = { ...state };
       newState.allSpots = normalize(action.payload.Spots);
+      return newState;
+
+    case DELETE_SPOT:
+      newState = { ...state, allSpots: { ...state.allSpots } };
+      delete newState.allSpots[action.payload];
       return newState;
 
     default:
