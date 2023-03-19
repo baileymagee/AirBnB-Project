@@ -11,6 +11,8 @@ export default function PostReview({ spotId }) {
   const [review, setReview] = useState("");
   const [stars, setStars] = useState("");
 
+  const isSubmitDisabled = review.length < 10 || stars.length <= 0
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,7 +25,6 @@ export default function PostReview({ spotId }) {
     closeModal();
   };
 
-  console.log(stars)
 
   return (
     <div>
@@ -90,7 +91,7 @@ export default function PostReview({ spotId }) {
           <i className="fa-regular fa-star"></i>
           </label>
         </div>
-        <button>Submit Your Review</button>
+        <button disabled={isSubmitDisabled}>Submit Your Review</button>
       </form>
     </div>
   );

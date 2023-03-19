@@ -29,15 +29,17 @@ export default function SingleSpot() {
     return state.session.user;
   });
 
-
   if (!singleSpot || !singleSpot.name) {
     return <h1>Loading...</h1>;
   }
 
   function onClick() {
-    alert('Feature coming soon...')
+    alert("Feature coming soon...");
   }
-  console.log(singleSpot, 'singlespot:   ')
+  // console.log(singleSpot, "singlespot:   ");
+  console.log('sessionUser:   ', sessionUser)
+  console.log('singleSpot:  ', singleSpot)
+  console.log('allReviews:   ', allReviews)
 
   return (
     <div>
@@ -61,26 +63,47 @@ export default function SingleSpot() {
         <h3>{`${singleSpot.price} night`}</h3>
       </div>
       <div className="star-reviews">
-      <i className="fa-solid fa-star"></i>
-      {singleSpot.numReviews > 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} reviews</h2> : null}
-      {singleSpot.numReviews === 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} review</h2> : null}
-      {singleSpot.numReviews === 0 ? <h2>{singleSpot.avgRating} New</h2> : null}
+        <i className="fa-solid fa-star"></i>
+        {singleSpot.numReviews > 1 ? (
+          <h2>
+            {singleSpot.avgRating} · {singleSpot.numReviews} reviews
+          </h2>
+        ) : null}
+        {singleSpot.numReviews === 1 ? (
+          <h2>
+            {singleSpot.avgRating} · {singleSpot.numReviews} review
+          </h2>
+        ) : null}
+        {singleSpot.numReviews === 0 ? (
+          <h2>{singleSpot.avgRating} New</h2>
+        ) : null}
       </div>
       <div className="reserve-button">
         <button onClick={onClick}>Reserve</button>
       </div>
       <div className="reviews">
-      <i className="fa-solid fa-star"></i>
-      {singleSpot.numReviews > 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} reviews</h2> : null}
-      {singleSpot.numReviews === 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} review</h2> : null}
-      {singleSpot.numReviews === 0 ? <h2>{singleSpot.avgRating} New</h2> : null}
-        <OpenModalButton
-          className="post-review"
-          buttonText="Post Your Review"
-          modalComponent={<PostReview spotId={spotId} />}
-        />
+        <i className="fa-solid fa-star"></i>
+        {singleSpot.numReviews > 1 ? (
+          <h2>
+            {singleSpot.avgRating} · {singleSpot.numReviews} reviews
+          </h2>
+        ) : null}
+        {singleSpot.numReviews === 1 ? (
+          <h2>
+            {singleSpot.avgRating} · {singleSpot.numReviews} review
+          </h2>
+        ) : null}
+        {singleSpot.numReviews === 0 ? (
+          <h2>{singleSpot.avgRating} New</h2>
+        ) : null}
+        { sessionUser && sessionUser?.id !== singleSpot?.ownerId && !allReviews.map((review) => review?.userId).includes(sessionUser?.id) &&
+          <OpenModalButton
+            className="post-review"
+            buttonText="Post Your Review"
+            modalComponent={<PostReview spotId={spotId} />}
+          />
+        }
         {allReviews.map((review) => {
-          console.log(review)
           return (
             <div className="review-data">
               <h3>{review.User.firstName}</h3>
@@ -89,7 +112,9 @@ export default function SingleSpot() {
                 <OpenModalButton
                   className="delete-review"
                   buttonText="Delete Review"
-                  modalComponent={<DeleteReview reviewId={review.id} spotId={spotId} />}
+                  modalComponent={
+                    <DeleteReview reviewId={review.id} spotId={spotId} />
+                  }
                 />
               ) : null}
             </div>
