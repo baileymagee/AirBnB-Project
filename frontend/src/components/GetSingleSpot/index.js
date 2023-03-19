@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 import { thunkGetSingleSpot } from "../../store/spotsReducer";
 import { thunkGetReviews } from "../../store/reviews";
 import { NavLink, useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
 import "./GetSingleSpot.css";
+import PostReview from "../PostReview";
+import DeleteReview from "../DeleteReview";
 
 export default function SingleSpot() {
   const dispatch = useDispatch();
@@ -21,7 +24,11 @@ export default function SingleSpot() {
   const allReviews = useSelector((state) => {
     return Object.values(state.reviews.getReviews);
   });
-  console.log(allReviews);
+
+  const sessionUser = useSelector((state) => {
+    return state.session.user;
+  });
+
 
   if (!singleSpot || !singleSpot.name) {
     return <h1>Loading...</h1>;
@@ -49,11 +56,24 @@ export default function SingleSpot() {
         <h3>{singleSpot.price}</h3>
       </div>
       <div className="reviews">
+        <OpenModalButton
+          className="post-review"
+          buttonText="Post Your Review"
+          modalComponent={<PostReview spotId={spotId} />}
+        />
         {allReviews.map((review) => {
+          console.log(review)
           return (
             <div className="review-data">
               <h3>{review.User.firstName}</h3>
               <h3>{review.review}</h3>
+              {sessionUser?.id === review.User.id ? (
+                <OpenModalButton
+                  className="delete-review"
+                  buttonText="Delete Review"
+                  modalComponent={<DeleteReview reviewId={review.id} spotId={spotId} />}
+                />
+              ) : null}
             </div>
           );
         })}
