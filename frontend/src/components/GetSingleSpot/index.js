@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { thunkGetSingleSpot } from "../../store/spotsReducer";
 import { thunkGetReviews } from "../../store/reviews";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import "./GetSingleSpot.css";
 import PostReview from "../PostReview";
@@ -36,10 +36,15 @@ export default function SingleSpot() {
   function onClick() {
     alert("Feature coming soon...");
   }
-  // console.log(singleSpot, "singlespot:   ");
-  console.log('sessionUser:   ', sessionUser)
-  console.log('singleSpot:  ', singleSpot)
-  console.log('allReviews:   ', allReviews)
+  console.log(allReviews)
+  const reviewDate = (date) => {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = new Date(date).getMonth()
+    return monthNames[month]
+  }
+
+  // console.log('month:   ', month)
 
   return (
     <div>
@@ -60,7 +65,7 @@ export default function SingleSpot() {
         <h3>{singleSpot.description}</h3>
       </div>
       <div className="spot-price">
-        <h3>{`${singleSpot.price} night`}</h3>
+        <h3>{`$${singleSpot.price} night`}</h3>
       </div>
       <div className="star-reviews">
         <i className="fa-solid fa-star"></i>
@@ -96,18 +101,23 @@ export default function SingleSpot() {
         {singleSpot.numReviews === 0 ? (
           <h2>{singleSpot.avgRating} New</h2>
         ) : null}
-        { sessionUser && sessionUser?.id !== singleSpot?.ownerId && !allReviews.map((review) => review?.userId).includes(sessionUser?.id) &&
-          <OpenModalButton
-            className="post-review"
-            buttonText="Post Your Review"
-            modalComponent={<PostReview spotId={spotId} />}
-          />
-        }
+        {sessionUser &&
+          sessionUser?.id !== singleSpot?.ownerId &&
+          !allReviews
+            .map((review) => review?.userId)
+            .includes(sessionUser?.id) && (
+            <OpenModalButton
+              className="post-review"
+              buttonText="Post Your Review"
+              modalComponent={<PostReview spotId={spotId} />}
+            />
+          )}
         {allReviews.map((review) => {
           return (
             <div className="review-data">
               <h3>{review.User.firstName}</h3>
               <h3>{review.review}</h3>
+              <h3>{reviewDate(review.createdAt)} {new Date (review.createdAt).getFullYear()}</h3>
               {sessionUser?.id === review.User.id ? (
                 <OpenModalButton
                   className="delete-review"
