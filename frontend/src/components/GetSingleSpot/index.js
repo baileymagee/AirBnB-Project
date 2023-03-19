@@ -34,6 +34,10 @@ export default function SingleSpot() {
     return <h1>Loading...</h1>;
   }
 
+  function onClick() {
+    alert('Feature coming soon...')
+  }
+
   return (
     <div>
       <div className="spot-name">
@@ -53,7 +57,10 @@ export default function SingleSpot() {
         <h3>{singleSpot.description}</h3>
       </div>
       <div className="spot-price">
-        <h3>{singleSpot.price}</h3>
+        <h3>{`${singleSpot.price} night`}</h3>
+      </div>
+      <div className="reserve-button">
+        <button onClick={onClick}>Reserve</button>
       </div>
       <div className="reviews">
         <OpenModalButton

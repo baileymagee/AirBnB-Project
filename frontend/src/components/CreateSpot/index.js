@@ -21,10 +21,81 @@ export default function CreateSpot() {
   const [photo4, setPhoto4] = useState("");
   const [photo5, setPhoto5] = useState("");
   const [errors, setErrors] = useState([]);
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+
+    if (!country) errors.Country = "Country is required";
+
+    if (!address) errors.Address = "Address is required";
+
+    if (!city) errors.City = "City is required";
+
+    if (!state) errors.State = "State is required";
+
+    if (description < 30) {
+      errors.description = "Description needs a minimum of 30 characters";
+    }
+
+    if (!name) errors.Name = "Name is required";
+
+    if (!price) errors.Price = "Price is required";
+
+    if (!previewImage) errors.PreviewImage = "Preview image is required";
+
+    if (
+      !previewImage.endsWith(".jpeg") &&
+      !previewImage.endsWith(".jpg") &&
+      !previewImage.endsWith(".png")
+    ) {
+      errors.PreviewImage = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
+    if (
+      photo2.length > 0 &&
+      !photo2.endsWith(".jpeg") &&
+      !photo2.endsWith(".jpg") &&
+      !photo2.endsWith(".png")
+    ) {
+      errors.Photo2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
+    if (
+      photo3.length > 0 &&
+      !photo3.endsWith(".jpeg") &&
+      !photo3.endsWith(".jpg") &&
+      !photo3.endsWith(".png")
+    ) {
+      errors.Photo2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
+    if (
+      photo4.length > 0 &&
+      !photo4.endsWith(".jpeg") &&
+      !photo4.endsWith(".jpg") &&
+      !photo4.endsWith(".png")
+    ) {
+      errors.Photo2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
+    if (
+      photo5.length > 0 &&
+      !photo5.endsWith(".jpeg") &&
+      !photo5.endsWith(".jpg") &&
+      !photo5.endsWith(".png")
+    ) {
+      errors.Photo2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+
+    return errors;
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
+    const errors = validate();
+    const errorContent = Object.values(errors);
+    if (errorContent.length) return setValidationErrors(errors);
 
     const formInfo = {
       country,
@@ -65,6 +136,8 @@ export default function CreateSpot() {
     setPhoto3("");
     setPhoto4("");
     setPhoto5("");
+    setValidationErrors([]);
+    setErrors([]);
   };
 
   return (
@@ -76,6 +149,11 @@ export default function CreateSpot() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
+        <h3>Where's your place located?</h3>
+        <label>
+          Guests will only get your exact address once they booked a
+          reservation.
+        </label>
         <div className="form-row">
           <label>Country</label>
           <input
@@ -86,6 +164,9 @@ export default function CreateSpot() {
             placeholder="Country"
             // required
           />
+          {validationErrors.Country && (
+            <div className="error-msg">* {validationErrors.Country}</div>
+          )}
         </div>
         <div className="form-row">
           <label>Street Address</label>
@@ -97,6 +178,9 @@ export default function CreateSpot() {
             placeholder="Address"
             // required
           />
+          {validationErrors.Address && (
+            <div className="error-msg">* {validationErrors.Address}</div>
+          )}
         </div>
         <div className="form-row">
           <label>City</label>
@@ -108,6 +192,9 @@ export default function CreateSpot() {
             placeholder="City"
             // required
           />
+          {validationErrors.City && (
+            <div className="error-msg">* {validationErrors.City}</div>
+          )}
         </div>
         <div className="form-row">
           <label>State</label>
@@ -119,9 +206,16 @@ export default function CreateSpot() {
             placeholder="STATE"
             // required
           />
+          {validationErrors.State && (
+            <div className="error-msg">* {validationErrors.State}</div>
+          )}
         </div>
         <div className="form-row">
-          <label>Describe your place to guests</label>
+          <h3>Describe your place to guests</h3>
+          <label>
+            Mention the best features of your space, any special amentities like
+            fast wifi or parking, and what you love about the neighborhood.
+          </label>
           <input
             id="description"
             type="text"
@@ -129,9 +223,16 @@ export default function CreateSpot() {
             value={description}
             placeholder="Description"
           />
+          {validationErrors.Description && (
+            <div className="error-msg">* {validationErrors.Description}</div>
+          )}
         </div>
         <div className="form-row">
-          <label>Create a title for your spot</label>
+          <h3>Create a title for your spot</h3>
+          <label>
+            Catch guest's attention with a spot title that highlights what makes
+            your place special.
+          </label>
           <input
             id="name"
             type="text"
@@ -140,9 +241,16 @@ export default function CreateSpot() {
             placeholder="Name of your spot"
             // required
           />
+          {validationErrors.Name && (
+            <div className="error-msg">* {validationErrors.Name}</div>
+          )}
         </div>
         <div className="form-row">
-          <label>Set a base price for your spot</label>
+          <h3>Set a base price for your spot</h3>
+          <label>
+            Competitive pricing can help your listing stand out and rank higher
+            in search results.
+          </label>
           <input
             id="price"
             type="text"
@@ -151,9 +259,15 @@ export default function CreateSpot() {
             placeholder="Price per night (USD)"
             // required
           />
+          {validationErrors.Price && (
+            <div className="error-msg">* {validationErrors.Price}</div>
+          )}
         </div>
         <div className="form-row">
-          <label>Liven up your spot with photos</label>
+          <h3>Liven up your spot with photos</h3>
+          <label>
+            Submit a link to at least one photo to publish your spot.
+          </label>
           <input
             id="previewImage"
             type="url"
@@ -162,6 +276,9 @@ export default function CreateSpot() {
             placeholder="Preview Image URL"
             // required
           />
+          {validationErrors.PreviewImage && (
+            <div className="error-msg">* {validationErrors.PreviewImage}</div>
+          )}
           <input
             id="photo2"
             type="url"
@@ -169,6 +286,9 @@ export default function CreateSpot() {
             value={photo2}
             placeholder="Image URL"
           />
+          {validationErrors.Photo2 && (
+            <div className="error-msg">* {validationErrors.Photo2}</div>
+          )}
           <input
             id="photo3"
             type="url"
@@ -176,6 +296,9 @@ export default function CreateSpot() {
             value={photo3}
             placeholder="Image URL"
           />
+          {validationErrors.Photo3 && (
+            <div className="error-msg">* {validationErrors.Photo3}</div>
+          )}
           <input
             id="photo4"
             type="url"
@@ -183,6 +306,9 @@ export default function CreateSpot() {
             value={photo4}
             placeholder="Image URL"
           />
+          {validationErrors.Photo4 && (
+            <div className="error-msg">* {validationErrors.Photo4}</div>
+          )}
           <input
             id="photo5"
             type="url"
@@ -190,6 +316,9 @@ export default function CreateSpot() {
             value={photo5}
             placeholder="Image URL"
           />
+          {validationErrors.Photo5 && (
+            <div className="error-msg">* {validationErrors.Photo5}</div>
+          )}
         </div>
         <button>Create a Spot</button>
       </form>

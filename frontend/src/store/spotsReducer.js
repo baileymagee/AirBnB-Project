@@ -80,10 +80,12 @@ export const thunkAddSpot = (data, imgArray) => async (dispatch) => {
     const newSpot = await response.json();
     dispatch(actionAddSpot(newSpot));
     for (let img of imgArray) {
-      await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-        method: "POST",
-        body: JSON.stringify(img),
-      });
+      if (img.url) {
+        await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+          method: "POST",
+          body: JSON.stringify(img),
+        });
+      }
     }
     return newSpot.id;
   }

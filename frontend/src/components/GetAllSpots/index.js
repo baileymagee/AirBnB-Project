@@ -27,10 +27,11 @@ export default function Spots() {
                 <img src={spot.previewImage} alt={spot.name} />
               </div>
             </NavLink>
-              <p>
-                {spot.city}, {spot.state}
-              </p>
-              <p>{`$${spot.price} night`}</p>
+            <p>
+              {spot.city}, {spot.state}
+            </p>
+            {spot.avgRating ? <p>{spot.avgRating}</p> : <p>New</p>}
+            <p>{`$${spot.price} night`}</p>
           </div>
         );
       })}
