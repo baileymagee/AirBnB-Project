@@ -37,6 +37,7 @@ export default function SingleSpot() {
   function onClick() {
     alert('Feature coming soon...')
   }
+  console.log(singleSpot, 'singlespot:   ')
 
   return (
     <div>
@@ -59,10 +60,20 @@ export default function SingleSpot() {
       <div className="spot-price">
         <h3>{`${singleSpot.price} night`}</h3>
       </div>
+      <div className="star-reviews">
+      <i className="fa-solid fa-star"></i>
+      {singleSpot.numReviews > 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} reviews</h2> : null}
+      {singleSpot.numReviews === 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} review</h2> : null}
+      {singleSpot.numReviews === 0 ? <h2>{singleSpot.avgRating} New</h2> : null}
+      </div>
       <div className="reserve-button">
         <button onClick={onClick}>Reserve</button>
       </div>
       <div className="reviews">
+      <i className="fa-solid fa-star"></i>
+      {singleSpot.numReviews > 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} reviews</h2> : null}
+      {singleSpot.numReviews === 1 ? <h2>{singleSpot.avgRating} · {singleSpot.numReviews} review</h2> : null}
+      {singleSpot.numReviews === 0 ? <h2>{singleSpot.avgRating} New</h2> : null}
         <OpenModalButton
           className="post-review"
           buttonText="Post Your Review"
