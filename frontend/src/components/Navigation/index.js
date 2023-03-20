@@ -6,17 +6,14 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
+import logo from './icon.png'
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
-    sessionLinks = (
-      <li>
-        {isLoaded && <ProfileButton user={sessionUser} />}
-      </li>
-    );
+    sessionLinks = <div className="profile-btn-wrapper">{isLoaded && <ProfileButton user={sessionUser} />}</div>;
   } else {
     sessionLinks = (
       <li>
@@ -33,13 +30,19 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <NavLink exact to="/">
-        Home
-      </NavLink>
-      <NavLink to="/spots/new">Create a new Spot</NavLink>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div className="nav-bar">
+        <div className="nav-logo">
+          <NavLink exact to="/">
+            <img src={logo} alt='logo' height="90px"></img>
+          </NavLink>
+        </div>
+        <div className="nav-right">
+          <div className="nav-form">
+            <NavLink to="/spots/new">Create a new Spot</NavLink>
+          </div>
+          <div className="nav-profile">{isLoaded && sessionLinks}</div>
+        </div>
+    </div>
   );
 }
 

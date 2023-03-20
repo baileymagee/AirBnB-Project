@@ -22,8 +22,8 @@ export default function DeleteSpot({ spot }) {
     <div>
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to remove this spot from the listings?</p>
-      <button onClick={handleSubmit}>Yes (Delete Spot)</button>
-      <button onClick={clickNo}>No (Keep Spot)</button>
+      <button onClick={handleSubmit} style={{backgroundColor: 'red'}}>Yes (Delete Spot)</button>
+      <button onClick={clickNo} style={{backgroundColor: 'darkgray'}}>No (Keep Spot)</button>
     </div>
   );
 }

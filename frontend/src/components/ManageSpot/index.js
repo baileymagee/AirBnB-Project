@@ -4,6 +4,7 @@ import { thunkManageSpots } from "../../store/spotsReducer";
 import { NavLink, useHistory } from "react-router-dom";
 import DeleteSpot from "../DeleteSpotModal";
 import OpenModalButton from "../OpenModalButton";
+import "./ManageSpot.css";
 
 export default function ManageSpot() {
   const dispatch = useDispatch();
@@ -25,27 +26,51 @@ export default function ManageSpot() {
       <NavLink to={"/spots/new"}>
         <button>Create a Spot</button>
       </NavLink>
-      {Object.values(spots).map((spot) => {
-        return (
-          <div className="spot-info">
-            <NavLink to={`/spots/${spot.id}`}>
-              <div className="spot-image">
-                <img src={spot.previewImage} alt={spot.name} />
+      <div className="manage-inner">
+        {Object.values(spots).map((spot) => {
+          return (
+            <div className="spot-info">
+              <NavLink to={`/spots/${spot.id}`}>
+                <div className="spot-image">
+                  <img
+                    src={spot.previewImage}
+                    alt={spot.name}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              </NavLink>
+              <div className="bottom-row">
+              <p>
+                {spot.city}, {spot.state}
+              </p>
+              <div className="star-rating">
+                <i id="star-img" className="fa-solid fa-star"></i>
+                {spot.avgRating ? (
+                  <p>{Number(spot.avgRating).toFixed(1)}</p>
+                ) : (
+                  <p>New</p>
+                )}
               </div>
-            </NavLink>
-            <p>
-              {spot.city}, {spot.state}
-            </p>
-            <p>{`$${spot.price} night`}</p>
-            <NavLink to={`/edits/spots/${spot.id}`}>Update</NavLink>
-            <OpenModalButton
-              className="delete-modal"
-              buttonText="Delete"
-              modalComponent={<DeleteSpot spot={spot} />}
-            />
-          </div>
-        );
-      })}
+              </div>
+              <p>{`$${spot.price} night`}</p>
+              <div className="button-edit">
+                <button onClick={() => history.push(`/edits/spots/${spot.id}`)}>
+                  Update
+                </button>
+                <OpenModalButton
+                  className="delete-modal"
+                  buttonText="Delete"
+                  modalComponent={<DeleteSpot spot={spot} />}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   ) : (
     <h1>Loading Spots</h1>

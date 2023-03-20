@@ -1,0 +1,19 @@
+.spot-info {
+    padding: 20px;
+}
+
+
+.manage-inner {
+    display: flex;
+}
+
+.bottom-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.button-edit {
+    display: flex;
+}

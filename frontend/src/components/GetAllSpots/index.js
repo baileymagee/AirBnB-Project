@@ -18,23 +18,25 @@ export default function Spots() {
   });
 
   return isLoaded ? (
-    <div>
+    <div className="all-spots">
       {Object.values(spots).map((spot) => {
         return (
           <div className="splash-page">
             <NavLink to={`/spots/${spot.id}`}>
               <div className="spot-image">
-                <img src={spot.previewImage} alt={spot.name} />
+                <img className="preview-image" src={spot.previewImage} alt={spot.name} />
               </div>
             </NavLink>
+            <div className="under-img">
             <p>
               {spot.city}, {spot.state}
             </p>
             <div className="star-rating">
-            <i className="fa-solid fa-star"></i>
-            {spot.avgRating ? <p>{spot.avgRating}</p> : <p>New</p>}
-            <p>{`$${spot.price} night`}</p>
+            <i id="star-img" className="fa-solid fa-star"></i>
+            {spot.avgRating ? <p>{Number(spot.avgRating).toFixed(1)}</p> : <p>New</p>}
             </div>
+          </div>
+            <p>{`$${spot.price} night`}</p>
           </div>
         );
       })}

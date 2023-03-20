@@ -1,1 +1,46 @@
-.hidden {display: none;}
+.hidden {
+  display: none;
+}
+
+
+.profile-btn-wrapper {
+    position: relative;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    border-bottom: 2px gray solid;
+}
+
+.nav-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    /* display: flex; */
+    float:left;
+}
+
+.nav-profile {
+    display: flex;
+    /* float: right; */
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.nav-form {
+    display: flex;
+    /* float: right; */
+    padding: 10px;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    padding: 10px;
+    float: right;
+    justify-content: center;
+}

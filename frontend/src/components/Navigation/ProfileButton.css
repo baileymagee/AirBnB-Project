@@ -1,0 +1,14 @@
+.profile-btn {
+    position: relative;
+}
+
+
+.profile-menu {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding-right: 24px;
+    min-width: fit-content;
+}

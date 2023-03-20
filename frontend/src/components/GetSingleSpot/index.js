@@ -36,13 +36,25 @@ export default function SingleSpot() {
   function onClick() {
     alert("Feature coming soon...");
   }
-  console.log(allReviews)
+  console.log(allReviews);
   const reviewDate = (date) => {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'];
-    const month = new Date(date).getMonth()
-    return monthNames[month]
-  }
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const month = new Date(date).getMonth();
+    return monthNames[month];
+  };
 
   // console.log('month:   ', month)
 
@@ -58,49 +70,71 @@ export default function SingleSpot() {
       </div>
       {singleSpot.SpotImages.map((spotImage) => {
         return (
-          <img src={spotImage.url} alt={singleSpot.name} key={spotImage.id} />
+          <img
+            className="spot-image"
+            src={spotImage.url}
+            alt={singleSpot.name}
+            key={spotImage.id}
+          />
         );
       })}
-      <div className="spot-desc">
-        <h3>{singleSpot.description}</h3>
-      </div>
-      <div className="spot-price">
-        <h3>{`$${singleSpot.price} night`}</h3>
-      </div>
-      <div className="star-reviews">
-        <i className="fa-solid fa-star"></i>
-        {singleSpot.numReviews > 1 ? (
-          <h2>
-            {singleSpot.avgRating} · {singleSpot.numReviews} reviews
-          </h2>
-        ) : null}
-        {singleSpot.numReviews === 1 ? (
-          <h2>
-            {singleSpot.avgRating} · {singleSpot.numReviews} review
-          </h2>
-        ) : null}
-        {singleSpot.numReviews === 0 ? (
-          <h2>{singleSpot.avgRating} New</h2>
-        ) : null}
-      </div>
-      <div className="reserve-button">
-        <button onClick={onClick}>Reserve</button>
+      <div className="middle">
+        <div className="left-side">
+          <div className="spot-host">
+            <h2>
+              {`Hosted by ${singleSpot.Owner.firstName} ${singleSpot.Owner.lastName}`}
+            </h2>
+          </div>
+          <div className="spot-desc">
+            <h3>{singleSpot.description}</h3>
+          </div>
+        </div>
+        <div className="right-box">
+          <div className="top-box">
+            <div className="spot-price">
+              <h3>{`$${singleSpot.price} night`}</h3>
+            </div>
+            <div className="star-reviews">
+              <i id="star" className="fa-solid fa-star"></i>
+              {singleSpot.numReviews > 1 ? (
+                <h2>
+                  {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} reviews
+                </h2>
+              ) : null}
+              {singleSpot.numReviews === 1 ? (
+                <h2>
+                  {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} review
+                </h2>
+              ) : null}
+              {singleSpot.numReviews === 0 ? (
+                <h2> New</h2>
+              ) : null}
+            </div>
+          </div>
+          <div className="reserve-button">
+            <button className="right-button" onClick={onClick}>
+              Reserve
+            </button>
+          </div>
+        </div>
       </div>
       <div className="reviews">
-        <i className="fa-solid fa-star"></i>
-        {singleSpot.numReviews > 1 ? (
-          <h2>
-            {singleSpot.avgRating} · {singleSpot.numReviews} reviews
-          </h2>
-        ) : null}
-        {singleSpot.numReviews === 1 ? (
-          <h2>
-            {singleSpot.avgRating} · {singleSpot.numReviews} review
-          </h2>
-        ) : null}
-        {singleSpot.numReviews === 0 ? (
-          <h2>{singleSpot.avgRating} New</h2>
-        ) : null}
+        <div className="star-img">
+          <i id="star1"className="fa-solid fa-star"></i>
+          {singleSpot.numReviews > 1 ? (
+            <h2>
+              {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} reviews
+            </h2>
+          ) : null}
+          {singleSpot.numReviews === 1 ? (
+            <h2>
+              {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} review
+            </h2>
+          ) : null}
+          {singleSpot.numReviews === 0 ? (
+            <h2> New</h2>
+          ) : null}
+        </div>
         {sessionUser &&
           sessionUser?.id !== singleSpot?.ownerId &&
           !allReviews
@@ -116,8 +150,11 @@ export default function SingleSpot() {
           return (
             <div className="review-data">
               <h3>{review.User.firstName}</h3>
+              <h3>
+                {reviewDate(review.createdAt)}{" "}
+                {new Date(review.createdAt).getFullYear()}
+              </h3>
               <h3>{review.review}</h3>
-              <h3>{reviewDate(review.createdAt)} {new Date (review.createdAt).getFullYear()}</h3>
               {sessionUser?.id === review.User.id ? (
                 <OpenModalButton
                   className="delete-review"

@@ -22,8 +22,8 @@ export default function DeleteReview({reviewId, spotId}) {
     <div>
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to delete this review?</p>
-      <button onClick={handleSubmit}>Yes (Delete Review)</button>
-      <button onClick={clickNo}>No (Keep Review)</button>
+      <button onClick={handleSubmit} style={{backgroundColor: 'red'}}>Yes (Delete Review)</button>
+      <button onClick={clickNo} style={{backgroundColor: 'darkgray'}}>No (Keep Review)</button>
     </div>
   );
 }
