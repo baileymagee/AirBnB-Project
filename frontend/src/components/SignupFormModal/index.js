@@ -29,7 +29,7 @@ function SignupFormModal() {
       return true
     }
 
-    if (password === confirmPassword) {
+    if (!password === confirmPassword) {
       return true
     }
 

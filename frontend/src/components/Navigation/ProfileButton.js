@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
-import "./ProfileButton.css";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  // console.log(user);
+  const history = useHistory();
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -32,7 +34,6 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    history.push("/")
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -43,22 +44,40 @@ function ProfileButton({ user }) {
 
   return (
     <div className="profile-btn">
-        <button onClick={openMenu}>
-          <i className="fa-solid fa-bars"></i>
-          <i className="fas fa-user-circle" />
-        </button>
-      <div className="profile-menu">
-        <ul className={ulClassName} ref={ulRef}>
-          <div className="profile-name">{`Hello, ${user.firstName}.`}</div>
-          <div className="profile-email">{user.email}</div>
-          <div className="manage-btn">
-            <button onClick={manageListing}>Manage Spots</button>
-          </div>
-          <div className="log-out-btn">
-            <button onClick={logout}>Log Out</button>
-          </div>
-        </ul>
-      </div>
+      <button onClick={openMenu}>
+        <i className="fas fa-user-circle" />
+      </button>
+      <ul className={ulClassName} ref={ulRef}>
+        <div className="profile-menu">
+          {user ? (
+            <>
+              <div className="profile-name">{`Hello, ${user.firstName}.`}</div>
+              <div className="profile-email">{user.email}</div>
+              <div className="manage-btn">
+              <button onClick={manageListing}>Manage Spots</button>
+              </div>
+              <div className="log-out-btn">
+                <button onClick={logout}>Log Out</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="log-in-btn">
+                <OpenModalButton
+                  buttonText="Log In"
+                  modalComponent={<LoginFormModal />}
+                />
+              </div>
+              <div className="sign-up-btn">
+                <OpenModalButton
+                  buttonText="Sign Up"
+                  modalComponent={<SignupFormModal />}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      </ul>
     </div>
   );
 }
