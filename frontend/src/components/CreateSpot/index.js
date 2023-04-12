@@ -157,6 +157,7 @@ export default function CreateSpot() {
             reservation.
           </label>
           <div className="form-row">
+            <div></div>
             <label>Country</label>
             <input
               id="country"
@@ -164,7 +165,6 @@ export default function CreateSpot() {
               onChange={(e) => setCountry(e.target.value)}
               value={country}
               placeholder="Country"
-              // required
             />
             {validationErrors.Country && (
               <div className="error-msg">* {validationErrors.Country}</div>
@@ -178,7 +178,6 @@ export default function CreateSpot() {
               onChange={(e) => setAddress(e.target.value)}
               value={address}
               placeholder="Address"
-              // required
             />
             {validationErrors.Address && (
               <div className="error-msg">* {validationErrors.Address}</div>
@@ -193,7 +192,6 @@ export default function CreateSpot() {
                 onChange={(e) => setCity(e.target.value)}
                 value={city}
                 placeholder="City"
-                // required
               />
               {validationErrors.City && (
                 <div className="error-msg">* {validationErrors.City}</div>
@@ -207,7 +205,6 @@ export default function CreateSpot() {
                 onChange={(e) => setState(e.target.value)}
                 value={state}
                 placeholder="STATE"
-                // required
               />
               {validationErrors.State && (
                 <div className="error-msg">* {validationErrors.State}</div>
@@ -244,7 +241,6 @@ export default function CreateSpot() {
               onChange={(e) => setName(e.target.value)}
               value={name}
               placeholder="Name of your spot"
-              // required
             />
             {validationErrors.Name && (
               <div className="error-msg">* {validationErrors.Name}</div>
@@ -262,7 +258,6 @@ export default function CreateSpot() {
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               placeholder="Price per night (USD)"
-              // required
             />
             {validationErrors.Price && (
               <div className="error-msg">* {validationErrors.Price}</div>
@@ -279,7 +274,6 @@ export default function CreateSpot() {
               onChange={(e) => setPreviewImage(e.target.value)}
               value={previewImage}
               placeholder="Preview Image URL"
-              // required
             />
             {validationErrors.PreviewImage && (
               <div className="error-msg">* {validationErrors.PreviewImage}</div>
@@ -325,7 +319,9 @@ export default function CreateSpot() {
               <div className="error-msg">* {validationErrors.Photo5}</div>
             )}
           </div>
-          <button>Create a Spot</button>
+          <div className="submit-button">
+            <button>Create a Spot</button>
+          </div>
         </form>
       </div>
     </div>

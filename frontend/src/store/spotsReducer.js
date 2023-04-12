@@ -1,4 +1,3 @@
-import Spots from "../components/GetAllSpots";
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = "spots/getAllSpots";
@@ -99,12 +98,6 @@ export const thunkEditSpot = (data, spotId) => async (dispatch) => {
   if (response.ok) {
     const edit = await response.json();
     dispatch(actionEditSpot(edit));
-    // for (let img of imgArray) {
-    //   await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-    //     method: "POST",
-    //     body: JSON.stringify(img),
-    //   });
-    // }
     return edit.id;
   }
 };
@@ -113,7 +106,6 @@ export const thunkManageSpots = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots/current");
   if (response.ok) {
     const data = await response.json();
-    // console.log(data);
     dispatch(actionManageSpot(data));
     return data;
   }
@@ -153,7 +145,7 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
 
     case GET_ONE_SPOT:
-      newState = { ...state };
+      newState =  { ...state };
       newState.singleSpot = action.payload;
       return newState;
 

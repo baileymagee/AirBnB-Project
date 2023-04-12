@@ -16,7 +16,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = <div className="profile-btn-wrapper">{isLoaded && <ProfileButton user={sessionUser} />}</div>;
   } else {
     sessionLinks = (
-      <li>
+      <div>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -25,7 +25,7 @@ function Navigation({ isLoaded }) {
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </li>
+      </div>
     );
   }
 
@@ -38,7 +38,7 @@ function Navigation({ isLoaded }) {
         </div>
         <div className="nav-right">
           <div className="nav-form">
-            <NavLink to="/spots/new">Create a new Spot</NavLink>
+            {sessionUser ? (<NavLink to="/spots/new">Create a new Spot</NavLink>) : false}
           </div>
           <div className="nav-profile">{isLoaded && sessionLinks}</div>
         </div>

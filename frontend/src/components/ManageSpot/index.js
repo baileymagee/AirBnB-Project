@@ -42,21 +42,21 @@ export default function ManageSpot() {
                     }}
                   />
                 </div>
+                <div className="bottom-row">
+                  <p>
+                    {spot.city}, {spot.state}
+                  </p>
+                  <div className="star-rating">
+                    <i id="star-img" className="fa-solid fa-star"></i>
+                    {spot.avgRating ? (
+                      <p>{Number(spot.avgRating).toFixed(1)}</p>
+                    ) : (
+                      <p>New</p>
+                    )}
+                  </div>
+                </div>
+                <p>{`$${spot.price} night`}</p>
               </NavLink>
-              <div className="bottom-row">
-              <p>
-                {spot.city}, {spot.state}
-              </p>
-              <div className="star-rating">
-                <i id="star-img" className="fa-solid fa-star"></i>
-                {spot.avgRating ? (
-                  <p>{Number(spot.avgRating).toFixed(1)}</p>
-                ) : (
-                  <p>New</p>
-                )}
-              </div>
-              </div>
-              <p>{`$${spot.price} night`}</p>
               <div className="button-edit">
                 <button onClick={() => history.push(`/edits/spots/${spot.id}`)}>
                   Update

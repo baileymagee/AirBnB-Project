@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
 
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -14,6 +15,27 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+  const disable = () => {
+    if (!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
+      return true
+    }
+
+    if (username.length < 4) {
+      return true
+    }
+
+    if (password.length < 6) {
+      return true
+    }
+
+    if (password === confirmPassword) {
+      return true
+    }
+
+    return false
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +60,7 @@ function SignupFormModal() {
       "Confirm Password field must be the same as the Password field",
     ]);
   };
+
 
   return (
     <>
@@ -102,10 +125,11 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={disable()}>Sign Up</button>
       </form>
     </>
   );
 }
+
 
 export default SignupFormModal;

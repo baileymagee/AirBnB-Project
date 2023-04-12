@@ -36,7 +36,7 @@ export default function SingleSpot() {
   function onClick() {
     alert("Feature coming soon...");
   }
-  console.log(allReviews);
+
   const reviewDate = (date) => {
     const monthNames = [
       "January",
@@ -55,8 +55,6 @@ export default function SingleSpot() {
     const month = new Date(date).getMonth();
     return monthNames[month];
   };
-
-  // console.log('month:   ', month)
 
   return (
     <div>
@@ -146,7 +144,7 @@ export default function SingleSpot() {
               modalComponent={<PostReview spotId={spotId} />}
             />
           )}
-        {allReviews.map((review) => {
+        {allReviews.reverse().map((review) => {
           return (
             <div className="review-data">
               <h3>{review.User.firstName}</h3>

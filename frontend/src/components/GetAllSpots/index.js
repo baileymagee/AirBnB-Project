@@ -24,19 +24,28 @@ export default function Spots() {
           <div className="splash-page">
             <NavLink to={`/spots/${spot.id}`}>
               <div className="spot-image">
-                <img className="preview-image" src={spot.previewImage} alt={spot.name} />
+                <img
+                  className="preview-image"
+                  src={spot.previewImage}
+                  alt={spot.name}
+                  title={spot.name}
+                />
               </div>
+              <div className="under-img">
+                <p>
+                  {spot.city}, {spot.state}
+                </p>
+                <div className="star-rating">
+                  <i id="star-img" className="fa-solid fa-star"></i>
+                  {spot.avgRating ? (
+                    <p>{Number(spot.avgRating).toFixed(1)}</p>
+                  ) : (
+                    <p>New</p>
+                  )}
+                </div>
+              </div>
+              <p>{`$${spot.price} night`}</p>
             </NavLink>
-            <div className="under-img">
-            <p>
-              {spot.city}, {spot.state}
-            </p>
-            <div className="star-rating">
-            <i id="star-img" className="fa-solid fa-star"></i>
-            {spot.avgRating ? <p>{Number(spot.avgRating).toFixed(1)}</p> : <p>New</p>}
-            </div>
-          </div>
-            <p>{`$${spot.price} night`}</p>
           </div>
         );
       })}
