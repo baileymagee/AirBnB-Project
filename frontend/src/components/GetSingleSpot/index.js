@@ -63,7 +63,7 @@ export default function SingleSpot() {
       </div>
       <div className="spot-location">
         <h2>
-          {singleSpot.address},{singleSpot.city},{singleSpot.country}
+          {singleSpot.address}, {singleSpot.city}, {singleSpot.country}
         </h2>
       </div>
       {singleSpot.SpotImages.map((spotImage) => {

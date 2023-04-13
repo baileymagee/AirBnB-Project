@@ -1,6 +1,7 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { thunkDeleteSpot } from "../../store/spotsReducer";
+import './DeleteSpotModal.css';
 
 export default function DeleteSpot({ spot }) {
   const dispatch = useDispatch();

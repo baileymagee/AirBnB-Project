@@ -63,16 +63,16 @@ function SignupFormModal() {
 
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="sign-up-form">
+      <h1 className="header">Sign Up</h1>
+      <form className="input-fields" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
           Email
+        <label className="email">
           <input
             type="text"
             value={email}
@@ -80,8 +80,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
           Username
+        <label className="username">
           <input
             type="text"
             value={username}
@@ -89,8 +89,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
           First Name
+        <label className="first-name">
           <input
             type="text"
             value={firstName}
@@ -98,8 +98,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
           Last Name
+        <label className="last-name">
           <input
             type="text"
             value={lastName}
@@ -107,8 +107,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
           Password
+        <label className="password">
           <input
             type="password"
             value={password}
@@ -116,8 +116,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
           Confirm Password
+        <label className="confirm-password">
           <input
             type="password"
             value={confirmPassword}
@@ -125,9 +125,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button type="submit" disabled={disable()}>Sign Up</button>
+        <button className="btn" type="submit" disabled={disable()}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

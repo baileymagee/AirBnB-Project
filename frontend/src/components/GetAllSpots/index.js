@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { thunkGetAllSpots } from "../../store/spotsReducer";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./GetAllSpots.css";
 
 export default function Spots() {
@@ -23,7 +23,7 @@ export default function Spots() {
         return (
           <div className="splash-page">
             <NavLink to={`/spots/${spot.id}`}>
-              <div className="spot-image">
+              <div className="spot-image" data-tooltip={spot.name}>
                 <img
                   className="preview-image"
                   src={spot.previewImage}
