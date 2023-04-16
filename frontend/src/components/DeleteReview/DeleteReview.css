@@ -1,0 +1,29 @@
+.review-delete-modal {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 250px;
+    justify-content: center;
+}
+
+.del-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.del-review-header {
+    display: flex;
+    justify-content: center;
+}
+
+.del-review-desc {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-review-btn {
+    width: 300px;
+    height: 35px;
+    margin: auto;
+    margin-bottom: 10px;
+}

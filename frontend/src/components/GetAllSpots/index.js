@@ -21,14 +21,13 @@ export default function Spots() {
     <div className="all-spots">
       {Object.values(spots).map((spot) => {
         return (
-          <div className="splash-page">
+          <div className="splash-page" title={spot.name}>
             <NavLink to={`/spots/${spot.id}`}>
               <div className="spot-image" data-tooltip={spot.name}>
                 <img
                   className="preview-image"
                   src={spot.previewImage}
                   alt={spot.name}
-                  title={spot.name}
                 />
               </div>
               <div className="under-img">

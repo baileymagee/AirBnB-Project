@@ -1,15 +1,21 @@
+#modal-content {
+    border-radius: 5%;
+}
 .log-in-modal {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 300px;
     height: 325px;
-    /* max-width: fit-content; */
     justify-content: center;
-    margin: auto;
+    /* margin: auto; */
 }
 
 .username-email {
+    display: flex;
+}
+
+.log-in-field {
     display: flex;
     width: 200px;
 }
@@ -27,5 +33,5 @@
 .log-in-btn {
     display: flex;
     margin-bottom: 10px;
+    justify-content: center;
 }
-

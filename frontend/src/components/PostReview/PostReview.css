@@ -1,5 +1,23 @@
+.post-review-modal {
+    display: flex;
+    justify-content: center;
+    width: 350px;
+    height: 280px;
+    /* margin: auto; */
+}
+
+.modal-text {
+    resize: none;
+}
+
 .stars {
     display: none;
     margin: 20px;
     /* width: 10px */
+}
+
+
+.submit-review-btn {
+    width: 200px;
+    height: 35px;
 }

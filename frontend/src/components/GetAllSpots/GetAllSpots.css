@@ -22,14 +22,14 @@
     height: 300px;
     overflow: hidden;
     /* border-radius: 20px; */
-    position: relative;
+    /* position: relative; */
 }
 
-.spot-image::before,
+/* .spot-image::before,
 .spot-image::after {
     position: absolute;
     top: 25px;
-    left: 10%;
+    left: 12%;
     transform: translateX(-50%) translateY(-100%);
 }
 
@@ -41,7 +41,7 @@
     width: max-content;
     max-width: 100%;
     background: #333;
-}
+} */
 
 
 .preview-image {

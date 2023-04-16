@@ -63,7 +63,7 @@ export default function SingleSpot() {
       </div>
       <div className="spot-location">
         <h2>
-          {singleSpot.address}, {singleSpot.city}, {singleSpot.country}
+          {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
         </h2>
       </div>
       {singleSpot.SpotImages.map((spotImage) => {
@@ -96,21 +96,21 @@ export default function SingleSpot() {
               <i id="star" className="fa-solid fa-star"></i>
               {singleSpot.numReviews > 1 ? (
                 <h2>
-                  {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} reviews
+                  {Number(singleSpot.avgRating).toFixed(1)} ·{" "}
+                  {singleSpot.numReviews} reviews
                 </h2>
               ) : null}
               {singleSpot.numReviews === 1 ? (
                 <h2>
-                  {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} review
+                  {Number(singleSpot.avgRating).toFixed(1)} ·{" "}
+                  {singleSpot.numReviews} review
                 </h2>
               ) : null}
-              {singleSpot.numReviews === 0 ? (
-                <h2> New</h2>
-              ) : null}
+              {singleSpot.numReviews === 0 ? <h2> New</h2> : null}
             </div>
           </div>
           <div className="reserve-button">
-            <button className="right-button" onClick={onClick}>
+            <button className="right-button" onClick={onClick} style={{ backgroundColor: "red", color: "white" }}>
               Reserve
             </button>
           </div>
@@ -118,31 +118,34 @@ export default function SingleSpot() {
       </div>
       <div className="reviews">
         <div className="star-img">
-          <i id="star1"className="fa-solid fa-star"></i>
+          <i id="star1" className="fa-solid fa-star"></i>
           {singleSpot.numReviews > 1 ? (
             <h2>
-              {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} reviews
+              {Number(singleSpot.avgRating).toFixed(1)} ·{" "}
+              {singleSpot.numReviews} reviews
             </h2>
           ) : null}
           {singleSpot.numReviews === 1 ? (
             <h2>
-              {Number(singleSpot.avgRating).toFixed(1)} · {singleSpot.numReviews} review
+              {Number(singleSpot.avgRating).toFixed(1)} ·{" "}
+              {singleSpot.numReviews} review
             </h2>
           ) : null}
-          {singleSpot.numReviews === 0 ? (
-            <h2> New</h2>
-          ) : null}
+          {singleSpot.numReviews === 0 ? <h2> New</h2> : null}
         </div>
         {sessionUser &&
           sessionUser?.id !== singleSpot?.ownerId &&
           !allReviews
             .map((review) => review?.userId)
             .includes(sessionUser?.id) && (
-            <OpenModalButton
-              className="post-review"
-              buttonText="Post Your Review"
-              modalComponent={<PostReview spotId={spotId} />}
-            />
+            <div className="noreview">
+              <OpenModalButton
+                className="post-review"
+                buttonText="Post Your Review"
+                modalComponent={<PostReview spotId={spotId} />}
+              />
+              <h2>Be the first to post a review!</h2>
+            </div>
           )}
         {allReviews.reverse().map((review) => {
           return (

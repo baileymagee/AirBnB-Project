@@ -5,6 +5,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useHistory } from "react-router-dom";
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function ProfileButton({ user }) {
               <div className="profile-name">{`Hello, ${user.firstName}.`}</div>
               <div className="profile-email">{user.email}</div>
               <div className="manage-btn">
-              <button onClick={manageListing}>Manage Spots</button>
+                <button onClick={manageListing}>Manage Spots</button>
               </div>
               <div className="log-out-btn">
                 <button onClick={logout}>Log Out</button>
@@ -62,18 +63,17 @@ function ProfileButton({ user }) {
             </>
           ) : (
             <>
-              <div className="log-in-btn">
-                <OpenModalButton
-                  buttonText="Log In"
-                  modalComponent={<LoginFormModal />}
-                />
-              </div>
-              <div className="sign-up-btn">
-                <OpenModalButton
-                  buttonText="Sign Up"
-                  modalComponent={<SignupFormModal />}
-                />
-              </div>
+              <OpenModalButton
+                className={"menu-button"}
+                buttonText="Log In"
+                modalComponent={<LoginFormModal />}
+              />
+
+              <OpenModalButton
+                className={"menu-button"}
+                buttonText="Sign Up"
+                modalComponent={<SignupFormModal />}
+              />
             </>
           )}
         </div>
