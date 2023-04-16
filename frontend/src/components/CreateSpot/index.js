@@ -320,7 +320,7 @@ export default function CreateSpot() {
             )}
           </div>
           <div className="submit-button">
-            <button>Create a Spot</button>
+            <button style={{ backgroundColor: "red", color: "white" }}>Create a Spot</button>
           </div>
         </form>
       </div>

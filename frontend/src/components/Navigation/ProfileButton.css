@@ -1,5 +1,21 @@
 .profile-btn {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
     position: relative;
+}
+
+.profile-button {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2px;
+    width: 60px;
+    height: 25px;
+    align-items: center;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    border: 0px white;
 }
 
 
@@ -18,4 +34,12 @@
     height: 120px;
     z-index: 1;
     justify-content: space-evenly;
+}
+
+.manage-btn {
+    width: 100px;
+}
+
+.log-out-btn {
+    width: 100px;
 }

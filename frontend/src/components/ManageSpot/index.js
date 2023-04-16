@@ -24,7 +24,7 @@ export default function ManageSpot() {
     <div className="manage-home">
       <h1>Manage Spot</h1>
       <NavLink to={"/spots/new"}>
-        <button>Create a Spot</button>
+        <button className="manage-spot-create-btn">Create a Spot</button>
       </NavLink>
       <div className="manage-inner">
         {Object.values(spots).map((spot) => {
@@ -57,8 +57,11 @@ export default function ManageSpot() {
                 </div>
                 <p>{`$${spot.price} night`}</p>
               </NavLink>
-              <div className="button-edit">
-                <button onClick={() => history.push(`/edits/spots/${spot.id}`)}>
+              <div className="buttons">
+                <button
+                  onClick={() => history.push(`/edits/spots/${spot.id}`)}
+                  className="button-edit"
+                >
                   Update
                 </button>
                 <OpenModalButton
