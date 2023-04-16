@@ -115,31 +115,33 @@ export default function EditSpot() {
               <div className="error-msg">* {validationErrors.Address}</div>
             )}
           </div>
-          <div className="form-row">
-            <label>City</label>
-            <input
-              id="city"
-              type="text"
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-              placeholder="City"
-            />
-            {validationErrors.City && (
-              <div className="error-msg">* {validationErrors.City}</div>
-            )}
-          </div>
-          <div className="form-row">
-            <label>State</label>
-            <input
-              id="state"
-              type="text"
-              onChange={(e) => setState(e.target.value)}
-              value={state}
-              placeholder="STATE"
-            />
-            {validationErrors.State && (
-              <div className="error-msg">* {validationErrors.State}</div>
-            )}
+          <div className="city-state">
+            <div className="form-row">
+              <label>City</label>
+              <input
+                id="city"
+                type="text"
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+                placeholder="City"
+              />
+              {validationErrors.City && (
+                <div className="error-msg">* {validationErrors.City}</div>
+              )}
+            </div>
+            <div className="form-row">
+              <label>State</label>
+              <input
+                id="state"
+                type="text"
+                onChange={(e) => setState(e.target.value)}
+                value={state}
+                placeholder="STATE"
+              />
+              {validationErrors.State && (
+                <div className="error-msg">* {validationErrors.State}</div>
+              )}
+            </div>
           </div>
           <div className="form-row">
             <label>Describe your place to guests</label>
@@ -180,7 +182,11 @@ export default function EditSpot() {
               <div className="error-msg">* {validationErrors.Price}</div>
             )}
           </div>
-          <button>Update Spot</button>
+          <div className="submit-button">
+            <button style={{ backgroundColor: "red", color: "white" }} className="submit-btn">
+              Update Spot
+            </button>
+          </div>
         </form>
       </div>
     </div>

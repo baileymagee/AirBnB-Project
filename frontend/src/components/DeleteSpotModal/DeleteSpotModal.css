@@ -1,0 +1,29 @@
+.spot-delete-modal {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 250px;
+    justify-content: center;
+}
+
+.spot-del-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.del-spot-header {
+    display: flex;
+    justify-content: center;
+}
+
+.del-spot-desc {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-btn {
+    width: 300px;
+    height: 35px;
+    margin: auto;
+    margin-bottom: 10px;
+}
