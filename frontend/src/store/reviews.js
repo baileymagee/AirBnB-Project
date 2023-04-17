@@ -65,7 +65,6 @@ const normalize = (reviews) => {
   reviews.forEach((review) => {
     data[review.id] = review;
   });
-  //   console.log(data)
   return data;
 };
 
@@ -79,7 +78,6 @@ const reviewReducer = (state = initialState, action) => {
 
     case DELETE_REVIEW:
       newState = { ...state, review: { ...state.getReviews }}
-      // newState = { ...state }
       delete newState.getReviews[action.payload]
       return newState
 
