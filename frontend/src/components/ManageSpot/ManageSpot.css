@@ -5,6 +5,8 @@
 
 .manage-inner {
     display: flex;
+    max-width: 800px;
+    
 }
 
 .bottom-row {

@@ -2,16 +2,31 @@ import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import { thunkPostReview } from "../../store/reviews";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import "./PostReview.css";
+
 
 export default function PostReview({ spotId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [review, setReview] = useState("");
   const [stars, setStars] = useState("");
+  const [hoverStar, setHoverStar] = useState(null);
 
   const isSubmitDisabled = review.length < 10 || stars.length <= 0;
+  
+  const MAX_STARS = 5;
+
+  const handleStarClick = (num) => {
+    setStars(num);
+  };
+
+  const mouseOn = (num) => {
+    setHoverStar(num);
+  };
+
+  const mouseOff = () => {
+    setHoverStar(null);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +39,28 @@ export default function PostReview({ spotId }) {
     dispatch(thunkPostReview(newReview, spotId));
     closeModal();
   };
+
+  const starElements = [];
+
+  for (let i = 1; i <= MAX_STARS; i++) {
+    const starClass = i <= (hoverStar || stars) ? "fa-solid" : "fa-regular";
+    starElements.push(
+      <label key={i}>
+        <input
+          type="radio"
+          name="star"
+          value={i}
+          className="stars"
+          onClick={() => handleStarClick(i)}
+        />
+        <i
+          className={`fa-star ${starClass}`}
+          onMouseEnter={() => mouseOn(i)}
+          onMouseLeave={mouseOff}
+        ></i>
+      </label>
+    );
+  }
 
   return (
     <div className="post-review-modal">
@@ -40,56 +77,7 @@ export default function PostReview({ spotId }) {
           ></textarea>
         </div>
         <div className="star">
-          <label>
-            <input
-              type="radio"
-              name="star"
-              value={stars}
-              className="stars"
-              onClick={() => setStars(1)}
-            />
-            <i className="fa-regular fa-star"></i>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="star"
-              value={stars}
-              className="stars"
-              onClick={() => setStars(2)}
-            />
-            <i className="fa-regular fa-star"></i>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="star"
-              value={stars}
-              className="stars"
-              onClick={() => setStars(3)}
-            />
-            <i className="fa-regular fa-star"></i>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="star"
-              value={stars}
-              className="stars"
-              onClick={() => setStars(4)}
-            />
-            <i className="fa-regular fa-star"></i>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="star"
-              value={stars}
-              className="stars"
-              onClick={() => setStars(5)}
-            />
-            <i className="fa-regular fa-star"></i>
-          </label>
+          {starElements}
           <p className="stars-text">Stars</p>
         </div>
         <button

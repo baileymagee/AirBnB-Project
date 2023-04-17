@@ -66,16 +66,18 @@ export default function SingleSpot() {
           {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
         </h2>
       </div>
-      {singleSpot.SpotImages.map((spotImage) => {
-        return (
-          <img
-            className="spot-image"
-            src={spotImage.url}
-            alt={singleSpot.name}
-            key={spotImage.id}
-          />
-        );
-      })}
+      <div className="img-container">
+        {singleSpot.SpotImages.map((spotImage) => {
+          return (
+            <img
+              className="single-spot-image"
+              src={spotImage.url}
+              alt={singleSpot.name}
+              key={spotImage.id}
+            />
+          );
+        })}
+      </div>
       <div className="middle">
         <div className="left-side">
           <div className="spot-host">
@@ -83,8 +85,8 @@ export default function SingleSpot() {
               {`Hosted by ${singleSpot.Owner.firstName} ${singleSpot.Owner.lastName}`}
             </h2>
           </div>
-          <div className="spot-desc">
-            <h3>{singleSpot.description}</h3>
+          <div>
+            <h3 className="spot-desc">{singleSpot.description}</h3>
           </div>
         </div>
         <div className="right-box">
@@ -110,7 +112,11 @@ export default function SingleSpot() {
             </div>
           </div>
           <div className="reserve-button">
-            <button className="right-button" onClick={onClick} style={{ backgroundColor: "red", color: "white" }}>
+            <button
+              className="right-button"
+              onClick={onClick}
+              style={{ backgroundColor: "red", color: "white" }}
+            >
               Reserve
             </button>
           </div>

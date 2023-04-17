@@ -42,6 +42,8 @@ export default function CreateSpot() {
     if (!name) errors.Name = "Name is required";
 
     if (!price) errors.Price = "Price is required";
+    
+    if (!parseInt(price)) errors.Price = "Price must be a number";
 
     if (
       !previewImage.endsWith(".jpeg") &&
@@ -320,7 +322,12 @@ export default function CreateSpot() {
             )}
           </div>
           <div className="submit-button">
-            <button style={{ backgroundColor: "red", color: "white" }} className="submit-btn">Create a Spot</button>
+            <button
+              style={{ backgroundColor: "red", color: "white" }}
+              className="submit-btn"
+            >
+              Create a Spot
+            </button>
           </div>
         </form>
       </div>

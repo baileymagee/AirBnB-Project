@@ -22,7 +22,7 @@ export default function ManageSpot() {
 
   return isLoaded ? (
     <div className="manage-home">
-      <h1>Manage Spot</h1>
+      <h1>Manage Your Spots</h1>
       <NavLink to={"/spots/new"}>
         <button className="manage-spot-create-btn">Create a Spot</button>
       </NavLink>
