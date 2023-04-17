@@ -90,6 +90,7 @@ export default function PostReview({ spotId }) {
             />
             <i className="fa-regular fa-star"></i>
           </label>
+          <p className="stars-text">Stars</p>
         </div>
         <button
           className={"submit-review-btn"}

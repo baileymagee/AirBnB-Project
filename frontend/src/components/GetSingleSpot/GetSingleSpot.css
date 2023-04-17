@@ -72,3 +72,11 @@ img.spot-image {
     display: flex;
     width: 100px;
 }
+
+.delete-review {
+    background-color: red;
+    color: white;
+    width: 100px;
+    border: 0px white;
+    border-radius: 5px;
+}

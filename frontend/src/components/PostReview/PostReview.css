@@ -2,17 +2,26 @@
     display: flex;
     justify-content: center;
     width: 350px;
-    height: 280px;
+    height: 310px;
+
     /* margin: auto; */
 }
 
 .modal-text {
     resize: none;
+    width: 275px;
+    height: 100px;
 }
 
+.star {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 80px;
+}
 .stars {
     display: none;
-    margin: 20px;
+    margin: 30px;
     /* width: 10px */
 }
 
@@ -20,4 +29,11 @@
 .submit-review-btn {
     width: 200px;
     height: 35px;
+    margin-left: 35px;
+    border-radius: 5px;
+    border: 0px white;
+}
+
+.stars-text {
+    margin-left: 3px;
 }
